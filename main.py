@@ -1,16 +1,20 @@
-# This is a sample Python script.
+from tkinter import *
+from tkinter import filedialog
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+root = Tk()
+root.title('Video Downloader')
+canvas = Canvas(root, width=400, height=300)
+canvas.pack()
+
+# app label
+app_label = Label(root, text="youtube downloader", fg='blue', font=('Arial',20))
+canvas.create_window(200, 20, window=app_label)
+
+# entry to accept video URL
+url_label = Label(root, text="Enter video URL")
+url_entry = Entry(root)
+canvas.create_window(200, 80, window=url_label)
+canvas.create_window(200, 100, window=url_entry)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+root.mainloop()
