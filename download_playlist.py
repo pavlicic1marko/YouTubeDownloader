@@ -1,10 +1,19 @@
 from tkinter import *
 from pytube import Playlist
+from tkinter import filedialog
 import os
+
+
+
+def get_path():
+    path = filedialog.askdirectory()
+    path_label.config(text=path)
 
 
 def download():
     global new_filename
+    # destination_path = "C:\\Users\MP\YT"
+    destination_path = path_label.cget("text")
     playlist_path = url_entry.get()
     print('Downloading...')
     playlist = Playlist(playlist_path)
@@ -23,18 +32,12 @@ def download():
         try:
             # move and rename file
             current_dir = os.getcwd()
-            destination_path = "C:\\Users\MP\YT"
             os.rename(os.path.join(current_dir, new_filename), os.path.join(destination_path, new_filename))
         except FileNotFoundError:
             print("File not found.")
         except FileExistsError:
             print("A file with the new name already exists at the destination.")
-
-
-
     print("download completed")
-
-
 
 
 root = Tk()
@@ -54,7 +57,7 @@ canvas.create_window(200, 100, window=url_entry)
 
 # path to download videos
 path_label = Label(root, text="select path where to download")
-bath_button = Button(root, text="Select", command='get_path')
+bath_button = Button(root, text="Select", command=get_path)
 canvas.create_window(200, 150, window=path_label)
 canvas.create_window(200, 170, window=bath_button)
 
