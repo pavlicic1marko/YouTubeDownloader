@@ -1,8 +1,10 @@
 from tkinter import *
 from pytube import Playlist
+import os
 
 
 def download():
+    global new_filename
     playlist_path = url_entry.get()
     print('Downloading...')
     playlist = Playlist(playlist_path)
@@ -14,9 +16,25 @@ def download():
             new_filename = f"{index:02d}_{original_filename}"
             video.streams.get_highest_resolution().download(filename=new_filename)
 
-            print(f"Downloaded video {index}: {video.title}")
         except Exception as e:
             print(f"Error downloading video {index}: {str(e)}")
+        print(f"Downloaded video {index}: {video.title}")
+
+        try:
+            # move and rename file
+            current_dir = os.getcwd()
+            destination_path = "C:\\Users\MP\YT"
+            os.rename(os.path.join(current_dir, new_filename), os.path.join(destination_path, new_filename))
+        except FileNotFoundError:
+            print("File not found.")
+        except FileExistsError:
+            print("A file with the new name already exists at the destination.")
+
+
+
+    print("download completed")
+
+
 
 
 root = Tk()
