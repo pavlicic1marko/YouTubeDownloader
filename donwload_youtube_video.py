@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import filedialog
 from pytube import YouTube
 from moviepy.editor import *
+import shutil
 
 
 def get_path():
@@ -12,9 +13,12 @@ def get_path():
 def download():
     video_path = url_entry.get()
     file_path = path_label.cget("text")
+    print('Downloading...')
     mp4 = YouTube(video_path).streams.get_highest_resolution().download()
     video_clip = VideoFileClip(mp4)
     video_clip.close()
+    shutil.move(mp4, file_path)
+    print('Download Complete')
 
 
 root = Tk()
